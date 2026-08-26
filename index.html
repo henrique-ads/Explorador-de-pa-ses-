@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TERMINAL // Explorador de Países</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="scanlines"></div>
+
+  <header class="board-header">
+    <div class="board-header__brand">
+      <span class="board-header__code">✈</span>
+      <div>
+        <h1 class="board-header__title">TERMINAL <span>INTL</span></h1>
+        <p class="board-header__sub">Painel de Partidas &mdash; Explorador de Países</p>
+      </div>
+    </div>
+    <div class="board-header__clock" id="clock" aria-live="off"></div>
+  </header>
+
+  <main>
+    <section class="search-bay" aria-label="Buscar país">
+      <form id="search-form" class="search-bay__form">
+        <label for="search-input" class="visually-hidden">Buscar país por nome</label>
+        <input
+          type="text"
+          id="search-input"
+          class="search-bay__input"
+          placeholder="BUSCAR DESTINO — ex: Brasil, Japão, Kenya..."
+          autocomplete="off"
+        >
+        <button type="submit" class="search-bay__submit">Buscar</button>
+      </form>
+
+      <div class="terminal-tabs" id="terminal-tabs" role="tablist" aria-label="Filtrar por continente">
+        <button class="terminal-tab is-active" data-region="all" role="tab" aria-selected="true">TODOS OS PORTÕES</button>
+        <button class="terminal-tab" data-region="africa" role="tab" aria-selected="false">ÁFRICA</button>
+        <button class="terminal-tab" data-region="americas" role="tab" aria-selected="false">AMÉRICAS</button>
+        <button class="terminal-tab" data-region="asia" role="tab" aria-selected="false">ÁSIA</button>
+        <button class="terminal-tab" data-region="europe" role="tab" aria-selected="false">EUROPA</button>
+        <button class="terminal-tab" data-region="oceania" role="tab" aria-selected="false">OCEANIA</button>
+      </div>
+    </section>
+
+    <div class="board-columns" aria-hidden="true">
+      <span>VOO</span><span>DESTINO</span><span>CAPITAL</span><span>REGIÃO</span><span>PAX</span><span>STATUS</span>
+    </div>
+
+    <section id="results" class="board" aria-live="polite">
+      <p class="board__loading">Carregando quadro de partidas…</p>
+    </section>
+  </main>
+
+  <footer class="board-footer">
+    <p>Dados de <a href="https://github.com/mledoze/countries" target="_blank" rel="noopener">mledoze/countries</a>, população via <a href="https://data.worldbank.org" target="_blank" rel="noopener">World Bank</a> &mdash; projeto de estudo, sem afiliação com aeroportos reais.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

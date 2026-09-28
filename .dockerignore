@@ -1,0 +1,19 @@
+# Controle de versão — irrelevante dentro da imagem e infla o build context
+.git
+.gitignore
+
+# Documentação e rascunhos — não fazem parte da aplicação servida
+README.md
+*.md
+
+# Ferramentas de desenvolvimento local (não usadas dentro do container Nginx)
+serve.ps1
+
+# Arquivos de configuração/ambiente do editor ou de agentes
+.claude/
+.vscode/
+.idea/
+
+# Segredos locais, se algum dia existirem
+.env
+.env.*

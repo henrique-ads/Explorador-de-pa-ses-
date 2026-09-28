@@ -4,7 +4,7 @@ Explorador de países com visual de painel de partidas de aeroporto. Cada país 
 
 - **Repositório GitHub:** https://github.com/henrique-ads/Explorador-de-pa-ses-
 - **Aplicação (GitHub Pages):** https://henrique-ads.github.io/Explorador-de-pa-ses-/
-- **Imagem no Docker Hub:** henriqueads/bootcamp2-app
+- **Imagem no Docker Hub:** https://hub.docker.com/r/henriqueads/bootcamp2-app
 
 ## Rodando com Docker
 

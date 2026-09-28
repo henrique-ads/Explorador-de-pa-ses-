@@ -8,18 +8,29 @@
 // aqui — essas três fontes são públicas, gratuitas e sem chave.
 // ==========================================================
 
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
 const COUNTRIES_URL = "https://cdn.jsdelivr.net/gh/mledoze/countries@master/countries.json";
 const POPULATION_URL = "https://api.worldbank.org/v2/country/all/indicator/SP.POP.TOTL?format=json&per_page=300&mrnev=1";
 const FLAG = (cca2) => `https://flagcdn.com/${cca2.toLowerCase()}.svg`;
+
+// ---------- Persistência (Supabase) ----------
+// Troque pelos valores do seu projeto em Project Settings → API.
+const SUPABASE_URL = "https://aqbkkfxsrxwgrzyhtjgf.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_tWotzId3u0IQf9sRbk6TkQ_c7sHSTOU";
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const resultsEl = document.getElementById("results");
 const formEl = document.getElementById("search-form");
 const inputEl = document.getElementById("search-input");
 const tabsEl = document.getElementById("terminal-tabs");
 const clockEl = document.getElementById("clock");
+const destinosListEl = document.getElementById("destinos-list");
+const destinosCountEl = document.getElementById("destinos-count");
 
 let activeRegion = "all";
 let allCountries = null; // carregado uma vez em init()
+let meusDestinos = []; // cache local dos favoritos vindos do Supabase
 
 // ---------- Relógio do painel (só atmosfera, não bloqueia nada) ----------
 function tickClock() {
@@ -79,6 +90,7 @@ function renderCountries(countries) {
       const population = formatPopulation(country.population || 0);
       const flagUrl = country.flags?.svg || country.flags?.png || "";
       const flagAlt = country.flags?.alt || `Bandeira de ${name}`;
+      const jaSalvo = meusDestinos.some((d) => d.dados_extra?.cca3 === gate);
 
       card.innerHTML = `
         <span class="flight-card__gate">${gate}</span>
@@ -89,11 +101,130 @@ function renderCountries(countries) {
         <span class="flight-card__field"><span class="flight-card__field-label">CAPITAL</span>${capital}</span>
         <span class="flight-card__field"><span class="flight-card__field-label">REGIÃO</span>${region}</span>
         <span class="flight-card__field"><span class="flight-card__field-label">PAX</span>${population}</span>
-        <span class="flight-card__status">EMBARCANDO</span>
+        <button
+          type="button"
+          class="flight-card__fav-btn${jaSalvo ? " is-saved" : ""}"
+          data-cca3="${gate}"
+          ${jaSalvo ? "disabled" : ""}
+        >${jaSalvo ? "✓ SALVO" : "★ EMBARCAR"}</button>
       `;
+
+      const favBtn = card.querySelector(".flight-card__fav-btn");
+      favBtn.addEventListener("click", () =>
+        handleFavoritar(favBtn, { name, capital, region, cca3: gate, flagUrl })
+      );
 
       resultsEl.appendChild(card);
     });
+}
+
+// ---------- Persistência: CRUD de favoritos (tabela "favoritos") ----------
+
+// CREATE — salva um país como destino
+async function salvarFavorito(nome, extra) {
+  const { data, error } = await supabase
+    .from("favoritos")
+    .insert({ nome_item: nome, dados_extra: extra })
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+// READ — lista todos os destinos salvos, mais recentes primeiro
+async function listarFavoritos() {
+  const { data, error } = await supabase
+    .from("favoritos")
+    .select("*")
+    .order("criado_em", { ascending: false });
+  if (error) throw error;
+  return data;
+}
+
+// UPDATE — alterna entre "desejado" e "visitado" (bônus)
+async function alternarStatus(destino) {
+  const novoStatus = destino.dados_extra?.status === "visitado" ? "desejado" : "visitado";
+  const dados_extra = { ...destino.dados_extra, status: novoStatus };
+  const { error } = await supabase.from("favoritos").update({ dados_extra }).eq("id", destino.id);
+  if (error) throw error;
+}
+
+// DELETE — remove um destino salvo
+async function removerFavorito(id) {
+  const { error } = await supabase.from("favoritos").delete().eq("id", id);
+  if (error) throw error;
+}
+
+// ---------- Handlers ligados à interface ----------
+
+async function handleFavoritar(button, country) {
+  button.disabled = true;
+  button.textContent = "SALVANDO…";
+  try {
+    await salvarFavorito(country.name, { ...country, status: "desejado" });
+    await refreshDestinos();
+    button.textContent = "✓ SALVO";
+    button.classList.add("is-saved");
+  } catch (err) {
+    button.disabled = false;
+    button.textContent = "★ EMBARCAR";
+    alert("Não foi possível salvar. Verifique a configuração do Supabase.");
+  }
+}
+
+async function handleRemover(id) {
+  try {
+    await removerFavorito(id);
+    await refreshDestinos();
+  } catch (err) {
+    alert("Não foi possível remover este destino.");
+  }
+}
+
+async function handleAlternarStatus(destino) {
+  try {
+    await alternarStatus(destino);
+    await refreshDestinos();
+  } catch (err) {
+    alert("Não foi possível atualizar o status.");
+  }
+}
+
+async function refreshDestinos() {
+  meusDestinos = await listarFavoritos();
+  renderDestinos();
+}
+
+function renderDestinos() {
+  destinosCountEl.textContent = meusDestinos.length;
+
+  if (meusDestinos.length === 0) {
+    destinosListEl.innerHTML = `<p class="board__empty">Nenhum destino salvo ainda. Clique em "★ EMBARCAR" em um país da lista abaixo.</p>`;
+    return;
+  }
+
+  destinosListEl.innerHTML = "";
+  meusDestinos.forEach((destino) => {
+    const extra = destino.dados_extra || {};
+    const visitado = extra.status === "visitado";
+
+    const card = document.createElement("article");
+    card.className = "destino-card";
+    card.innerHTML = `
+      <img class="destino-card__flag" src="${extra.flagUrl || ""}" alt="Bandeira de ${destino.nome_item}" loading="lazy">
+      <span class="destino-card__name">${destino.nome_item}</span>
+      <span class="destino-card__badge${visitado ? " is-visitado" : ""}">${visitado ? "VISITADO" : "DESEJADO"}</span>
+      <div class="destino-card__actions">
+        <button type="button" class="destino-card__btn" data-action="status">${visitado ? "Marcar desejado" : "Marcar visitado"}</button>
+        <button type="button" class="destino-card__btn destino-card__btn--remove" data-action="remove">Excluir</button>
+      </div>
+    `;
+
+    card.querySelector('[data-action="status"]').addEventListener("click", () => handleAlternarStatus(destino));
+    card.querySelector('[data-action="remove"]').addEventListener("click", () => handleRemover(destino.id));
+
+    destinosListEl.appendChild(card);
+  });
 }
 
 // ---------- Carregamento e normalização dos dados ----------
@@ -196,8 +327,14 @@ tabsEl.addEventListener("click", (event) => {
 // ---------- Carga inicial ----------
 async function init() {
   renderLoading();
+
+  const destinosPromise = refreshDestinos().catch(() => {
+    destinosListEl.innerHTML = `<p class="board__error">⚠ Não foi possível carregar seus destinos. Verifique a configuração do Supabase (URL/chave) em script.js.</p>`;
+  });
+
   try {
     allCountries = await loadAllCountries();
+    await destinosPromise; // garante que já sabemos quais países estão salvos antes de desenhar a lista
     loadCountries({ region: activeRegion });
   } catch (err) {
     renderError("Torre de controle fora do ar. Verifique sua conexão e tente novamente.");

@@ -1,4 +1,4 @@
-/* ==========================================================
+ /* ==========================================================
    TERMINAL INTL — Explorador de Países
    Design: painel de partidas de aeroporto
    ========================================================== */
@@ -382,6 +382,162 @@ main {
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.3; }
+}
+
+/* ---------------- Favoritar (botão no flight-card) ---------------- */
+
+.flight-card__fav-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--amber);
+  background: transparent;
+  border: 1px solid var(--amber-dim);
+  border-radius: 4px;
+  padding: 6px 10px;
+  cursor: pointer;
+  justify-self: start;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+@media (min-width: 860px) {
+  .flight-card__fav-btn {
+    justify-self: end;
+  }
+}
+
+.flight-card__fav-btn:hover:not(:disabled) {
+  background: var(--amber);
+  color: var(--bg);
+}
+
+.flight-card__fav-btn:disabled {
+  cursor: default;
+}
+
+.flight-card__fav-btn.is-saved {
+  color: var(--green);
+  border-color: var(--green);
+}
+
+/* ---------------- Meus Destinos (painel de favoritos) ---------------- */
+
+.destinos {
+  margin-top: 28px;
+  padding: 20px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.destinos__title {
+  margin: 0 0 14px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.destinos__count {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--bg);
+  background: var(--amber);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.destinos__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.destino-card {
+  display: grid;
+  grid-template-columns: 32px 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-panel-raised);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 10px 14px;
+}
+
+.destino-card__flag {
+  width: 28px;
+  height: 20px;
+  object-fit: cover;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+}
+
+.destino-card__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.destino-card__badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--amber);
+  border: 1px solid var(--amber-dim);
+  border-radius: 999px;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+
+.destino-card__badge.is-visitado {
+  color: var(--green);
+  border-color: var(--green);
+}
+
+.destino-card__actions {
+  display: flex;
+  gap: 6px;
+}
+
+.destino-card__btn {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 6px 8px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.destino-card__btn:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.destino-card__btn--remove:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+@media (max-width: 560px) {
+  .destino-card {
+    grid-template-columns: 28px 1fr;
+    grid-template-areas:
+      "flag name"
+      "badge badge"
+      "actions actions";
+  }
+  .destino-card__badge { grid-area: badge; justify-self: start; }
+  .destino-card__actions { grid-area: actions; }
 }
 
 /* ---------------- Footer ---------------- */

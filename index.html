@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TERMINAL // Explorador de Países</title>
+  <meta name="description" content="Explorador de países com visual de painel de partidas de aeroporto. Busque por nome, filtre por continente e salve seus destinos favoritos.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✈️</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -48,6 +50,13 @@
       </div>
     </section>
 
+    <section id="meus-destinos" class="destinos" aria-label="Meus destinos salvos">
+      <h2 class="destinos__title">MEUS DESTINOS <span class="destinos__count" id="destinos-count">0</span></h2>
+      <div id="destinos-list" class="destinos__list">
+        <p class="board__loading">Carregando seus destinos…</p>
+      </div>
+    </section>
+
     <div class="board-columns" aria-hidden="true">
       <span>VOO</span><span>DESTINO</span><span>CAPITAL</span><span>REGIÃO</span><span>PAX</span><span>STATUS</span>
     </div>
@@ -61,6 +70,6 @@
     <p>Dados de <a href="https://github.com/mledoze/countries" target="_blank" rel="noopener">mledoze/countries</a>, população via <a href="https://data.worldbank.org" target="_blank" rel="noopener">World Bank</a> &mdash; projeto de estudo, sem afiliação com aeroportos reais.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>

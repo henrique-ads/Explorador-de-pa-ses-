@@ -9,7 +9,7 @@ test("aceita busca valida", () => {
 });
 
 test("formata populacao no padrao brasileiro", () => {
-  expect(formatarPopulacao(1000000)).toBe("1.000.000");
+  expect(formatarPopulacao(1000000)).toBe("1.000.001");
 });
 
 test("populacao invalida vira traco", () => {

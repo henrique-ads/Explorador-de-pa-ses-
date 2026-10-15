@@ -266,14 +266,14 @@ async function loadAllCountries() {
 function filterCountries({ name = "", region = "all" } = {}) {
   let list = allCountries;
 
-  if (name.trim()) {
-    const q = name.trim().toLowerCase();
+    if (name.trim()) {
+    const q = normalizarTexto(name);
     return list.filter(
       (c) =>
-        c.name.common.toLowerCase().includes(q) ||
-        c.name.official.toLowerCase().includes(q) ||
-        (c.translations?.por?.common || "").toLowerCase().includes(q) ||
-        (c.translations?.por?.official || "").toLowerCase().includes(q)
+        normalizarTexto(c.name.common).includes(q) ||
+        normalizarTexto(c.name.official).includes(q) ||
+        normalizarTexto(c.translations?.por?.common || "").includes(q) ||
+        normalizarTexto(c.translations?.por?.official || "").includes(q)
     );
   }
 

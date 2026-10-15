@@ -44,11 +44,7 @@ tickClock();
 setInterval(tickClock, 1000);
 
 // ---------- Helpers de formatação ----------
-function formatPopulation(num) {
-  if (num >= 1_000_000) return `${(num / 1_000_000).toFixed(1)}M`;
-  if (num >= 1_000) return `${(num / 1_000).toFixed(0)}K`;
-  return String(num);
-}
+
 
 function getCurrencyLabel(currencies) {
   if (!currencies) return "—";
@@ -87,7 +83,7 @@ function renderCountries(countries) {
       const name = displayName(country);
       const capital = country.capital ? country.capital[0] : "Sem capital";
       const region = country.region || "—";
-      const population = formatPopulation(country.population || 0);
+      const population = formatarPopulacao(country.population || 0);
       const flagUrl = country.flags?.svg || country.flags?.png || "";
       const flagAlt = country.flags?.alt || `Bandeira de ${name}`;
       const jaSalvo = meusDestinos.some((d) => d.dados_extra?.cca3 === gate);
@@ -305,6 +301,10 @@ function loadCountries(query = {}) {
 formEl.addEventListener("submit", (event) => {
   event.preventDefault();
   const term = inputEl.value;
+  if (term.trim() !== "" && !validarBusca(term)) {
+    renderError("Digite pelo menos 2 letras para buscar um destino.");
+    return;
+  }
   loadCountries({ name: term, region: activeRegion });
 });
 

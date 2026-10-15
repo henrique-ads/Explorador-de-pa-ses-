@@ -21,8 +21,17 @@ function formatarNome(nome) {
   const limpo = nome.trim().toLowerCase();
   return limpo.charAt(0).toUpperCase() + limpo.slice(1);
 }
+// "  JAPÃO " -> "japao" (minusculas, sem acento e sem espacos nas pontas)
+function normalizarTexto(texto) {
+  if (typeof texto !== "string") return "";
+  return texto
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
 
 // So exporta quando roda no Node/Jest (no navegador "module" nao existe).
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { validarBusca, formatarPopulacao, formatarNome };
+   module.exports = { validarBusca, formatarPopulacao, formatarNome, normalizarTexto };
 }

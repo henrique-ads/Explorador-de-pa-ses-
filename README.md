@@ -11,7 +11,7 @@ Explorador de países com visual de painel de partidas de aeroporto. Cada país 
 | Nome                              | Matrícula      | GitHub                                         | Contribuição                                               |
 | --------------------------------- | -------------- | ---------------------------------------------- | ---------------------------------------------------------- |
 | Henrique                          | «matrícula»    | [henrique-ads](https://github.com/henrique-ads) | Explorador de Países (app, Supabase, Docker, testes e CI)  |
-| Kauê Rodrigues de Oliveira Rocha  | 22606256       | [Oliveira-hubn](https://github.com/Oliveira-hubn) | Ordenação da lista de países e o Investfy (pasta `investfy/`) |
+| Kauê Rodrigues de Oliveira Rocha  | 22606256       | [Oliveira-hubn](https://github.com/Oliveira-hubn) | Investfy (pasta `investfy/`)                               |
 
 ## Rodando com Docker
 

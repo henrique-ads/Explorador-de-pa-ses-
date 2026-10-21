@@ -10,11 +10,12 @@ Este repositório é o **desafio final do Bootcamp II (Etapa 03)**: além da apl
 
 ## 1. Integrantes
 
-O projeto foi desenvolvido **individualmente**, por isso a tabela tem uma única linha. O professor foi informado de que o grupo é de uma pessoa.
+O projeto foi desenvolvido por uma **dupla**. Cada integrante é responsável por funcionalidades de código e revisou as Pull Requests do outro.
 
-| Nome | Matrícula | Usuário GitHub | Funcionalidade pela qual respondeu | Principal PR |
+| Kaue Rodrigues de Oliveira Rocha | 22606256 | Oliveira-hubn | Investfy um site de investimentos | Principal PR |
 | --- | --- | --- | --- | --- |
-| Henrique Bernardes Machado | «22603659» | [henrique-ads](https://github.com/henrique-ads) | Todas: interface, persistência (Supabase), consumo de APIs, testes, CI e Docker | [PR #2 · Busca sem acento](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/2) |
+| Henrique Bernardes Machado | 22603659 | [henrique-ads](https://github.com/henrique-ads) | Interface, persistência (Supabase), consumo de APIs, testes iniciais, CI e Docker | [PR #2 · Busca sem acento](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/2) |
+| «Nome do colega» | «matrícula do colega» | [Oliveira-hubn](https://github.com/Oliveira-hubn) | «funcionalidade de código que ele fez» | [#5 · Feature/investfy](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/5) |
 
 ## 2. Sobre a aplicação
 
@@ -92,7 +93,7 @@ Um *ruleset* (Settings → Rules) protege a `main` com:
 - **Require a pull request before merging:** nenhum código entra direto na `main`.
 - **Require status checks to pass:** o check obrigatório `testes` (GitHub Actions) precisa estar verde para liberar o merge.
 
-Como o projeto é individual, o número de aprovações exigidas é **0**: o GitHub não permite que o autor aprove a própria PR. A revisão foi feita por mim mesmo, relendo o diff e registrando comentários na aba *Files changed* de cada PR.
+Hoje a regra exige **1 aprovação** de outro integrante. As PRs #1 a #4 foram feitas **antes** de o segundo integrante entrar no projeto, quando a regra exigia 0 aprovações (o GitHub não permite que o autor aprove a própria PR); nelas, a revisão foi feita pelo próprio autor, com comentários na aba *Files changed*. A partir da entrada do segundo integrante, cada PR passou a ser revisada e aprovada pelo outro.
 
 ### Pull Requests do projeto
 
@@ -102,7 +103,9 @@ Como o projeto é individual, o número de aprovações exigidas é **0**: o Git
 | [#2](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/2) | Adiciona busca sem acento com normalizarTexto | Mesclada |
 | [#3](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/3) | Teste: quebra um teste de propósito para validar o bloqueio do CI | Fechada sem mesclar (evidência) |
 | [#4](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/4) | Inclui utils.js na imagem Docker | Mesclada |
-| [#5](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/5) | Documentação final da Etapa 03 | Mesclada |
+| [#5](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/5) | Feature/investfy «ajuste o título se ele renomear a PR» | «Mesclada, aprovada por Henrique (preencher quando acontecer)» |
+| [«#»](«link da PR do Henrique revisada pelo colega») | «título» | Mesclada, aprovada pelo colega |
+| [#6](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/6) | Documentação final da Etapa 03 | «Mesclada, aprovada pelo colega (preencher quando acontecer)» |
 
 A PR #4 corrigiu um defeito real: o `Dockerfile` não copiava o `utils.js`, então a imagem publicada no Docker Hub não tinha as funções usadas pela busca. Depois da correção, a imagem foi reconstruída e publicada.
 
@@ -118,7 +121,7 @@ A [PR #3](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/3) alterou 
 
 ### Conflito de merge
 
-Não houve conflito de merge neste projeto: as PRs foram feitas em sequência, por uma única pessoa, e cada uma partiu da `main` atualizada.
+«Confirme no fim do projeto. Se NÃO houve conflito, use: "Não houve conflito de merge neste projeto: cada PR partiu da `main` atualizada e alterou arquivos ou trechos diferentes." Se houve, relate em qual PR, em quais arquivos e como foi resolvido, e apague esta instrução.»
 
 ## Sidequests da Etapa 02
 

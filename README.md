@@ -12,10 +12,10 @@ Este repositório é o **desafio final do Bootcamp II (Etapa 03)**: além da apl
 
 O projeto foi desenvolvido por uma **dupla**. Cada integrante é responsável por funcionalidades de código e revisou as Pull Requests do outro.
 
-| Kaue Rodrigues de Oliveira Rocha | 22606256 | Oliveira-hubn | Investfy um site de investimentos | Principal PR |
+| Nome | Matrícula | GitHub | Funcionalidade | Principal PR |
 | --- | --- | --- | --- | --- |
 | Henrique Bernardes Machado | 22603659 | [henrique-ads](https://github.com/henrique-ads) | Interface, persistência (Supabase), consumo de APIs, testes iniciais, CI e Docker | [PR #2 · Busca sem acento](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/2) |
-| «Nome do colega» | «matrícula do colega» | [Oliveira-hubn](https://github.com/Oliveira-hubn) | «funcionalidade de código que ele fez» | [#5 · Feature/investfy](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/5) |
+| Kauê Rodrigues de Oliveira Rocha | 22606256 | [Oliveira-hubn](https://github.com/Oliveira-hubn) | Investfy, painel de cotações da B3 (pasta `investfy/`) | [PR #5 · Feature/investfy](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/5) |
 
 ## 2. Sobre a aplicação
 
@@ -103,7 +103,7 @@ Hoje a regra exige **1 aprovação** de outro integrante. As PRs #1 a #4 foram f
 | [#2](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/2) | Adiciona busca sem acento com normalizarTexto | Mesclada |
 | [#3](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/3) | Teste: quebra um teste de propósito para validar o bloqueio do CI | Fechada sem mesclar (evidência) |
 | [#4](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/4) | Inclui utils.js na imagem Docker | Mesclada |
-| [#5](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/5) | Feature/investfy «ajuste o título se ele renomear a PR» | «Mesclada, aprovada por Henrique (preencher quando acontecer)» |
+| [#5](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/5) | Feature/investfy | «Mesclada, aprovada por Henrique (preencher quando acontecer)» |
 | [«#»](«link da PR do Henrique revisada pelo colega») | «título» | Mesclada, aprovada pelo colega |
 | [#6](https://github.com/henrique-ads/Explorador-de-pa-ses-/pull/6) | Documentação final da Etapa 03 | «Mesclada, aprovada pelo colega (preencher quando acontecer)» |
 
